@@ -35,6 +35,43 @@ def changecolors(img, mask1, mask2):
     # here we have changed the pixel value of every corresponding point in the image for which mask has a value > 0 {note that our created masks have only two values defined i.e 0 and 255}
     return imgcopy
 
+def calculate_distance(city1, city2):
+    # Calculate the Euclidean distance between two triangle centroids by distance formula
+    return np.sqrt((city1[0] - city2[0]) ** 2 + (city1[1] - city2[1]) ** 2)
+
+def nearest_neighbor_algorithm(cities):
+    n = len(cities)
+    visited = [False] * n  # Track visited cities
+    tour = []  # This will store the order of visited cities
+    current_city = 0  # Start from the first city
+    visited[current_city] = True
+    tour.append(current_city)
+
+    for _ in range(n - 1):  # Loop through all cities except the starting one
+        nearest_city = None
+        nearest_distance = float('inf')
+
+        for city_index in range(n):
+            if not visited[city_index]:  # If the city hasn't been visited
+                distance = calculate_distance(cities[current_city], cities[city_index])
+                if distance < nearest_distance:  # Check if this is the nearest city
+                    nearest_distance = distance
+                    nearest_city = city_index
+        
+        # Move to the nearest city
+        visited[nearest_city] = True
+        tour.append(nearest_city)
+        current_city = nearest_city
+
+    # Return to the starting city to complete the cycle
+    tour.append(0)  # create a complete cycle
+    return tour
+
+def calculate_total_distance(tour, cities):
+    total_distance = 0
+    for i in range(len(tour) - 1):
+        total_distance += calculate_distance(cities[tour[i]], cities[tour[i + 1]])
+    return total_distance
 
 def drawTriangles(img, mask1, mask2):
     #mask1- grass where we want the object to be
@@ -135,6 +172,17 @@ for i in range(1,11):
     print("Priority of green patch = ", p_g)
     print("Priority Ratio = " , p_b/p_g)
     p_r_list.append(p_b/p_g)
+    cities = brownred + brownblue + greenred + greenblue  # Combine all centroids
+    if cities:  # Ensure the list of combination is not empty
+        tour = nearest_neighbor_algorithm(cities)
+        total_distance = calculate_total_distance(tour, cities)
+        print("TSP Tour Order:", tour)
+        print("Total TSP Distance:", total_distance)
+        # Draw lines
+        for j in range(len(tour) - 1):
+            pt1 = cities[tour[j]]  # Current city
+            pt2 = cities[tour[j + 1]]  # Next city
+            cv.line(imgcopy, pt1, pt2, (255, 0, 130), 2) 
     cv.imshow(("result"+str(i)), imgcopy)
     cv.waitKey()
 
