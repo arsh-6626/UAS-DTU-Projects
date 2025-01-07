@@ -1,5 +1,15 @@
 # MOTOR ALERTNESS INFERRENCES
 
+## GUIDELINES FROM DARPA FOR MOTOR ALERTNESS
+* NORMAL if:
+    * Walking, standing, or sitting unsupported with coordinated movement of limbs OR Responsive to prompts to move, within limits of sustained injury (Actors only).
+* ABNORMAL if:
+    * Lying or sitting supported with minimal movement or twitching AND Unresponsive to prompts to move body.
+* ABSENT if:
+    * Lying or sitting supported with no limb movement.
+* NOT TESTABLE if:
+    * Cannot assess due to external immobilization of limbs or total occlusion of limbs
+
 ## ULTRALYTICS YOLO
 
 ```
