@@ -67,52 +67,53 @@ cv2.destroyAllWindows()
                 variances = np.var(current_keypoints - prev_keypoints, axis=0)
                 print(f"Keypoint variances between frames: {variances}")
   ```
-  ![image](https://github.com/user-attachments/assets/073b16a5-52dc-4254-9df7-24702abc0398)
+  
+  * ![image](https://github.com/user-attachments/assets/073b16a5-52dc-4254-9df7-24702abc0398)
 
   ```
-  import os
-import warnings
-from argparse import ArgumentParser
-import time
-from collections import deque
-
-import cv2
-import numpy as np
-from ultralytics import YOLO
-from mmpose.apis import (inference_top_down_pose_model, init_pose_model,
-                         vis_pose_result)
-from mmpose.datasets import DatasetInfo
-
-os.environ['OPENCV_FFMPEG_READ_ATTEMPTS'] = '10000'
-
-def visualize():
-    parser = ArgumentParser()
-    parser.add_argument('--video-path', type=str, help='Video path', default="/home/cha0s/D05_G1_S3.MP4")
-    parser.add_argument('--burns-index-list', type=list, required=False)
-    parser.add_argument('--lacerations-index-list', type=list, required=False)
-    parser.add_argument(
-        '--show',
-        action='store_true',
-        default=True,
-        help='whether to show visualizations.')
-    parser.add_argument(
-        '--out-video-root',
-        default='sample',
-        help='Root of the output video file.')
-    parser.add_argument(
-        '--device', default='cuda:0', help='Device used for inference')
-    parser.add_argument(
-        '--kpt-thr', type=float, default=0.3, help='Keypoint score threshold')
-    parser.add_argument(
-        '--radius',
-        type=int,
-        default=5,
-        help='Keypoint radius for visualization')
-    parser.add_argument(
-        '--thickness',
-        type=int,
-        default=1,
-        help='Link thickness for visualization')
+   import os
+   import warnings
+   from argparse import ArgumentParser
+   import time
+   from collections import deque
+   
+   import cv2
+   import numpy as np
+   from ultralytics import YOLO
+   from mmpose.apis import (inference_top_down_pose_model, init_pose_model,
+                            vis_pose_result)
+   from mmpose.datasets import DatasetInfo
+   
+   os.environ['OPENCV_FFMPEG_READ_ATTEMPTS'] = '10000'
+   
+   def visualize():
+       parser = ArgumentParser()
+       parser.add_argument('--video-path', type=str, help='Video path', default="/home/cha0s/D05_G1_S3.MP4")
+       parser.add_argument('--burns-index-list', type=list, required=False)
+       parser.add_argument('--lacerations-index-list', type=list, required=False)
+       parser.add_argument(
+           '--show',
+           action='store_true',
+           default=True,
+           help='whether to show visualizations.')
+       parser.add_argument(
+           '--out-video-root',
+           default='sample',
+           help='Root of the output video file.')
+       parser.add_argument(
+           '--device', default='cuda:0', help='Device used for inference')
+       parser.add_argument(
+           '--kpt-thr', type=float, default=0.3, help='Keypoint score threshold')
+       parser.add_argument(
+           '--radius',
+           type=int,
+           default=5,
+           help='Keypoint radius for visualization')
+       parser.add_argument(
+           '--thickness',
+           type=int,
+           default=1,
+           help='Link thickness for visualization')
 
     args = parser.parse_args()
 
@@ -241,9 +242,27 @@ def visualize():
     if args.show:
         cv2.destroyAllWindows()
 
-if __name__ == '__main__':
-    visualize()
-    
-```
+   if __name__ == '__main__':
+       visualize()
+    ```
 
-* meow
+  ## USE CASE PLOTS
+
+### ABSENT - STATIONARY
+* variance between 0-10
+* ![image](https://github.com/user-attachments/assets/20f53125-8fc7-4c2d-91c3-e5f586bbb9b9)
+
+### ABNORMAL - TWITCHING
+* variance from 10-20
+
+### NORMAL - WALKIN
+* variance from 10-20
+
+need to fix it
+
+## meow
+
+### NORMAL - 
+
+
+
