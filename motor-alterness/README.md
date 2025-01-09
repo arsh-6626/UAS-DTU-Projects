@@ -260,7 +260,15 @@ cv2.destroyAllWindows()
 
 need to fix it
 
-## meow
+## adding a displacement threshold
+i added a displacement threshold of 10 pixel euclidean disatance and only store those keypoint sets which have a change in position for either of the body part and neglect the ones showing stationary movement 
+
+### ABSENT
+* showed 0-6 variance
+### ABNORMAL - TWITCHING
+* showed
+### WALKING
+* showed 
 
 ### NORMAL - 
 
